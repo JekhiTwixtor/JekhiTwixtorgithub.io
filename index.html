@@ -54,6 +54,15 @@
       border-radius: 20px;
       font-weight: 500;
     }
+    .comment-time {
+      font-size: 10px;
+      color: #6b7280;
+    }
+    .comment-fulltime {
+      font-size: 9px;
+      color: #4b5563;
+      margin-left: 4px;
+    }
   </style>
 </head>
 <body class="text-gray-200 min-h-screen flex flex-col">
@@ -99,7 +108,6 @@
 </section>
 
 <div class="max-w-4xl mx-auto px-4 mb-12 flex flex-col gap-4 items-center">
-  <!-- Type Filters -->
   <div class="flex flex-wrap justify-center gap-3 w-full">
     <button id="typeAllBtn" class="type-filter px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 shadow-md flex items-center gap-2 bg-indigo-600 text-white">
       <i class="fas fa-home"></i> Home / All Clips
@@ -112,7 +120,6 @@
     </button>
   </div>
 
-  <!-- Anime Filters -->
   <div class="flex flex-wrap justify-center gap-2 border-t border-gray-900/50 pt-4 w-full">
     <span class="text-xs text-gray-600 uppercase tracking-widest font-bold self-center mr-2">Anime:</span>
     <button data-anime="all" class="anime-filter px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 bg-indigo-600 text-white">All Anime</button>
@@ -147,6 +154,11 @@
       return date.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     }
 
+    function formatFullTimestamp(timestampStr) {
+      const date = new Date(timestampStr);
+      return date.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+
     function getRelativeTime(timestampStr) {
       const commentDate = new Date(timestampStr);
       const now = new Date();
@@ -157,6 +169,7 @@
       const diffDay = Math.floor(diffHour / 24);
       const diffMonth = Math.floor(diffDay / 30);
       const diffYear = Math.floor(diffDay / 365);
+      
       if (diffSec < 5) return 'just now';
       if (diffSec < 60) return `${diffSec} seconds ago`;
       if (diffMin < 60) return `${diffMin} minute${diffMin > 1 ? 's' : ''} ago`;
@@ -167,34 +180,21 @@
       return `${diffYear} year${diffYear > 1 ? 's' : ''} ago`;
     }
 
-    // VIDEO DATABASE with FULL ANIME NAMES and CHARACTER TAGS
     const videoDatabase = [
-      // Spy x Family
       { id: "spy1", title: "Yor Caught Loid Kissing Twixtor Clips", searchTerms: "yor caught loid kissing twixtor clips spy x family code white anime pack yor forger loid forger anya", type: "twixtor", anime: "spy-x-family", animeDisplay: "Spy x Family", characters: ["Yor Forger", "Loid Forger"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Spy x Family", style: "text-emerald-400 bg-emerald-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T14:30:00+05:30", size: 92, youtubeId: "15IFoMTddRA", driveUrl: "https://drive.google.com/file/d/1fueOfsq0Obcle4QrQpf4H-0SQ9PQAKye/view" },
       { id: "spy2", title: "Yor and Loid Twixtor Clips", searchTerms: "yor and loid twixtor clips spy x family code white anime pack yor forger loid forger", type: "twixtor", anime: "spy-x-family", animeDisplay: "Spy x Family", characters: ["Yor Forger", "Loid Forger"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Spy x Family", style: "text-emerald-400 bg-emerald-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T15:45:00+05:30", size: 95, youtubeId: "QYww1s4xlhw", driveUrl: "https://drive.google.com/file/d/1v-Smxijuedm6usuhXEtAVUUO8kv-yRSs/view" },
-      
-      // Alya Sometimes Hides Her Feelings in Russian - FULL NAME with CHARACTERS
       { id: "alya1", title: "Alya Twixtor Episode 1", searchTerms: "alya twixtor episode 1 alya sometimes hides her feelings in russian alisa mikhailovna kujou masachika kuze anime pack", type: "twixtor", anime: "alya", animeDisplay: "Alya Sometimes Hides Her Feelings in Russian", characters: ["Alisa Mikhailovna Kujou (Alya)", "Masachika Kuze"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Alya Sometimes Hides Her Feelings in Russian", style: "text-blue-400 bg-blue-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T22:06:00+05:30", size: 88, youtubeId: "5tBNdOgHOJM", driveUrl: "https://drive.google.com/file/d/1fawX_U44Stwgl8sQTWJ4HV-2lvAXcATx/view" },
       { id: "alya2", title: "Yuki Suou Twixtor Clips Episode 1", searchTerms: "yuki suou twixtor clips episode 1 alya sometimes hides her feelings in russian yuki suou", type: "twixtor", anime: "alya", animeDisplay: "Alya Sometimes Hides Her Feelings in Russian", characters: ["Yuki Suou"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Alya Sometimes Hides Her Feelings in Russian", style: "text-blue-400 bg-blue-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T21:48:53+05:30", size: 90, youtubeId: "y0xCYREst8U", driveUrl: "https://drive.google.com/file/d/1eQ7GhV-b3Kj_1A21Yna1mzCM65zgiImH/view" },
-      
-      // Oshi no Ko
       { id: "oshi1", title: "Oshi No Ko Twixtor Clips Episode 3", searchTerms: "oshi no ko twixtor clips episode 3 ai hoshino ruby aqua kana arima akane kurokawa", type: "twixtor", anime: "oshi-no-ko", animeDisplay: "Oshi no Ko", characters: ["Ai Hoshino", "Ruby Hoshino", "Aqua Hoshino"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Oshi no Ko", style: "text-pink-400 bg-pink-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T22:06:00+05:30", size: 85, youtubeId: "dfDTIrg_xHI", driveUrl: "https://drive.google.com/file/d/1RlCgj9GbWQSilk7TMJ9sjMPMx2Hxck5w/view" },
       { id: "oshi2", title: "Akane Twixtor Clips Season 2 Episode 1", searchTerms: "akane twixtor clips season 2 episode 1 oshi no ko akane kurokawa", type: "twixtor", anime: "oshi-no-ko", animeDisplay: "Oshi no Ko", characters: ["Akane Kurokawa"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Oshi no Ko", style: "text-pink-400 bg-pink-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T06:27:00+05:30", size: 85, youtubeId: "11pdKkWiNME", driveUrl: "https://drive.google.com/file/d/1KDaZF3-Rp9CA7mkYopKcv0EKV1__Zjiv/view" },
-      
-      // Wind Breaker
       { id: "wind1", title: "Umemiya Twixtor Clips For Editing", searchTerms: "umemiya twixtor clips for editing wind breaker hajime umemiya sakura haruka", type: "twixtor", anime: "wind-breaker", animeDisplay: "Wind Breaker", characters: ["Hajime Umemiya", "Sakura Haruka"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Wind Breaker", style: "text-amber-400 bg-amber-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-18T08:20:00+05:30", size: 95, youtubeId: "c_fyUHUlo8Y", driveUrl: "https://drive.google.com/file/d/15kR5EoETswrl_maync7Gc9-Qt-dHFNy_/view" },
-      
-      // Demon Slayer
       { id: "ds1", title: "Shinobu Kocho Twixtor Clips Season 4 Episode 1", searchTerms: "shinobu kocho twixtor clips season 4 episode 1 demon slayer shinobu kocho insect hashira", type: "twixtor", anime: "demon-slayer", animeDisplay: "Demon Slayer", characters: ["Shinobu Kocho"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-18T08:15:00+05:30", size: 90, youtubeId: "5M8lPS9YDrw", driveUrl: "https://drive.google.com/file/d/1y4NdgQNkqXXcyL0ZGUbRoexH8OHmCfr9/view?usp=sharing" },
       { id: "ds2", title: "Obanai Iguro & Sanemi Shinazugawa", searchTerms: "demon slayer obanai iguro sanemi shinazugawa hashira anime pack twixtor ep 1 serpent hashira wind hashira", type: "twixtor", anime: "demon-slayer", animeDisplay: "Demon Slayer", characters: ["Obanai Iguro", "Sanemi Shinazugawa"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-18T07:55:00+05:30", size: 70, youtubeId: "yZNhFXHgdVE", driveUrl: "https://drive.google.com/file/d/1g6TYS85yannzi3M7mh7tRgaFCdI-jOL0/view" },
       { id: "ds3", title: "Ubuyashiki Family House Blows Up Twixtor Clips Episode 8", searchTerms: "ubuyashiki family house blows up twixtor clips episode 8 demon slayer kagaya ubuyashiki", type: "twixtor", anime: "demon-slayer", animeDisplay: "Demon Slayer", characters: ["Kagaya Ubuyashiki", "Hinaki Ubuyashiki", "Nichika Ubuyashiki"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T19:00:00+05:30", size: 85, youtubeId: "vCnPM-KnTuE", driveUrl: "https://drive.google.com/file/d/1LkKmdCUIKTgK_ERpleJeEZU-fz3x4EF4/view" },
-      
-      // Suicide Squad Isekai
       { id: "ss1", title: "Suicide Squad Isekai Harley Quinn and Joker Twixtor Clips", searchTerms: "suicide squad isekai harley quinn joker twixtor clips anime pack harley quinn joker", type: "twixtor", anime: "suicide-squad-isekai", animeDisplay: "Suicide Squad Isekai", characters: ["Harley Quinn", "Joker"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Suicide Squad Isekai", style: "text-green-400 bg-green-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T19:30:00+05:30", size: 88, youtubeId: "uxCyJoa9W3g", driveUrl: "https://drive.google.com/file/d/1C_sK894lP5OA9lMDWvaQ5RxFY0S5oRIf/view" }
     ];
 
-    // PERSISTENT COMMENT SYSTEM
-    const STORAGE_KEY = 'jekhi_comments_final_v2';
+    const STORAGE_KEY = 'jekhi_comments_final_v5';
     let commentIdCounter = 0;
     
     function loadComments() {
@@ -238,7 +238,6 @@
       if (idx !== -1) { comments.splice(idx, 1); saveComments(commentStore); }
     }
 
-    // Filter state
     let currentType = 'all';
     let currentAnime = 'all';
     let searchQuery = '';
@@ -249,7 +248,6 @@
     const sortSelect = document.getElementById('sortSelect');
     const clipGrid = document.getElementById('clipGrid');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
-    
     const typeAllBtn = document.getElementById('typeAllBtn');
     const typeTwixtorBtn = document.getElementById('typeTwixtorBtn');
     const typeRawBtn = document.getElementById('typeRawBtn');
@@ -311,16 +309,21 @@
       const comments = getComments(videoId);
       let html = '';
       [...comments].reverse().forEach(c => {
+        const relativeTime = getRelativeTime(c.timestamp);
+        const fullTime = formatFullTimestamp(c.timestamp);
         html += `<div class="comment-bubble p-2 text-xs mb-2">
-          <div class="flex justify-between items-center mb-1 flex-wrap gap-1">
+          <div class="flex justify-between items-start mb-1 flex-wrap gap-1">
             <span class="font-semibold text-indigo-300">${escapeHtml(c.name)}</span>
             <div class="flex items-center gap-2">
-              <span class="text-gray-500 text-[10px]">${getRelativeTime(c.timestamp)}${c.edited ? ' (edited)' : ''}</span>
+              <div class="flex flex-col items-end">
+                <span class="text-gray-500 text-[10px]">${relativeTime}</span>
+                <span class="text-gray-600 text-[9px]">${fullTime}</span>
+              </div>
               <button class="edit-comment-btn text-gray-500 hover:text-yellow-400" data-id="${c.id}"><i class="fas fa-pen text-[10px]"></i></button>
               <button class="delete-comment-btn text-gray-500 hover:text-red-400" data-id="${c.id}"><i class="fas fa-trash text-[10px]"></i></button>
             </div>
           </div>
-          <p class="text-gray-300 comment-display">${escapeHtml(c.text)}</p>
+          <p class="text-gray-300 comment-display mt-1">${escapeHtml(c.text)}</p>
           <div class="edit-mode hidden mt-1 flex gap-2">
             <input type="text" class="edit-input w-full rounded px-2 py-1 text-xs text-white" value="${escapeHtml(c.text)}" maxlength="200">
             <button class="save-edit bg-green-600 hover:bg-green-700 text-white rounded px-2 py-1 text-xs">Save</button>
