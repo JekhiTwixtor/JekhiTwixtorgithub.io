@@ -54,107 +54,10 @@
       border-radius: 20px;
       font-weight: 500;
     }
-    /* Premium AdBlocker Overlay Styles */
-    .adblock-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(12px);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-    }
-    .adblock-card {
-      background: rgba(18, 22, 34, 0.85);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(79, 70, 229, 0.3);
-      border-radius: 20px;
-      padding: 24px 32px;
-      max-width: 380px;
-      text-align: center;
-      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(79, 70, 229, 0.1);
-      animation: fadeInUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-    }
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.95);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-    .adblock-card i {
-      font-size: 42px;
-      background: linear-gradient(135deg, #fbbf24, #f59e0b);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 12px;
-    }
-    .adblock-card h2 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      background: linear-gradient(135deg, #fbbf24, #f59e0b);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.3px;
-    }
-    .adblock-card p {
-      color: #9ca3af;
-      font-size: 13px;
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-    .adblock-card button {
-      background: linear-gradient(135deg, #4f46e5, #7c3aed);
-      border: none;
-      padding: 10px 24px;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 13px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-    }
-    .adblock-card button:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
-    }
-    .hidden-overlay {
-      display: none !important;
-    }
-    .main-content {
-      transition: filter 0.3s ease;
-    }
   </style>
 </head>
 <body class="text-gray-200 min-h-screen flex flex-col">
 
-<!-- Premium AdBlocker Detection Overlay -->
-<div id="adblockOverlay" class="adblock-overlay">
-  <div class="adblock-card">
-    <i class="fas fa-shield-alt"></i>
-    <h2>Ad Blocker Detected</h2>
-    <p>Please disable your ad blocker to continue.<br>Ads help keep this website free.</p>
-    <button onclick="location.reload()">
-      <i class="fas fa-sync-alt"></i> Refresh
-    </button>
-  </div>
-</div>
-
-<div id="mainContent" class="main-content">
 <header class="border-b border-gray-900 bg-[#0e111a] sticky top-0 z-50">
   <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center flex-wrap gap-3">
     <a href="#" class="text-xl md:text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500">
@@ -233,45 +136,9 @@
 <footer class="border-t border-gray-900 bg-[#0e111a] text-center py-6 text-xs text-gray-500 mt-auto">
   <p>&copy; 2026 JekhiEditsTwixtor. All rights reserved. Built for the editing community.</p>
 </footer>
-</div>
 
 <script>
   (function() {
-    // Premium AdBlocker Detection
-    function detectAdBlocker() {
-      const overlay = document.getElementById('adblockOverlay');
-      const mainContent = document.getElementById('mainContent');
-      
-      // Create test elements that ad blockers typically block
-      const testAd = document.createElement('div');
-      testAd.className = 'adsbox';
-      testAd.style.display = 'none';
-      document.body.appendChild(testAd);
-      
-      const fakeAdScript = document.createElement('script');
-      fakeAdScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-      fakeAdScript.async = true;
-      document.head.appendChild(fakeAdScript);
-      
-      setTimeout(() => {
-        const isAdBlocked = testAd.offsetHeight === 0 && testAd.offsetWidth === 0;
-        const isScriptBlocked = !fakeAdScript || fakeAdScript.src !== 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-        
-        if (isAdBlocked || isScriptBlocked) {
-          overlay.classList.remove('hidden-overlay');
-          mainContent.style.filter = 'blur(4px)';
-          mainContent.style.pointerEvents = 'none';
-        } else {
-          overlay.classList.add('hidden-overlay');
-          mainContent.style.filter = 'none';
-          mainContent.style.pointerEvents = 'auto';
-        }
-        
-        document.body.removeChild(testAd);
-        document.head.removeChild(fakeAdScript);
-      }, 100);
-    }
-
     // IST Timezone Helper Functions
     function convertToIST(date) {
       return date.toLocaleString('en-IN', {
@@ -340,28 +207,38 @@
     }
 
     const videoDatabase = [
+      // Spy x Family
       { id: "spy1", title: "Yor Caught Loid Kissing Twixtor Clips", searchTerms: "yor caught loid kissing twixtor clips spy x family code white anime pack yor forger loid forger anya", type: "twixtor", anime: "spy-x-family", animeDisplay: "Spy x Family", characters: ["Yor Forger", "Loid Forger"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Spy x Family", style: "text-emerald-400 bg-emerald-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T09:00:00Z", youtubeId: "15IFoMTddRA", driveUrl: "https://drive.google.com/file/d/1fueOfsq0Obcle4QrQpf4H-0SQ9PQAKye/view" },
       { id: "spy2", title: "Yor and Loid Twixtor Clips", searchTerms: "yor and loid twixtor clips spy x family code white anime pack yor forger loid forger", type: "twixtor", anime: "spy-x-family", animeDisplay: "Spy x Family", characters: ["Yor Forger", "Loid Forger"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Spy x Family", style: "text-emerald-400 bg-emerald-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T10:15:00Z", youtubeId: "QYww1s4xlhw", driveUrl: "https://drive.google.com/file/d/1v-Smxijuedm6usuhXEtAVUUO8kv-yRSs/view" },
       { id: "spy3", title: "Yor Fights In Flame Twixtor Clips", searchTerms: "yor fights in flame twixtor clips spy x family code white yor forger action fight", type: "twixtor", anime: "spy-x-family", animeDisplay: "Spy x Family", characters: ["Yor Forger"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Spy x Family", style: "text-emerald-400 bg-emerald-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T11:00:00Z", youtubeId: "f5ZW7dtaOhA", driveUrl: "https://drive.google.com/file/d/140B0E749L6YreNnCMNkd6ce3D-0hLUeX/view" },
+      // The Elusive Samurai
       { id: "elusive1", title: "Tokiyuki Twixtor Clips Episode 1", searchTerms: "tokiyuki twixtor clips episode 1 elusive samurai houjou tokiyuki", type: "twixtor", anime: "elusive-samurai", animeDisplay: "The Elusive Samurai", characters: ["Houjou Tokiyuki"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "The Elusive Samurai", style: "text-orange-400 bg-orange-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T11:30:00Z", youtubeId: "1qrC86nvUIQ", driveUrl: "https://drive.google.com/file/d/1HL9oRTSxdDoh8H_MgoRVU5GO3nXh6z5b/view" },
+      // Jujutsu Kaisen Season 3
       { id: "jjk1", title: "Yuji Itadori Twixtor Clips Episode 1", searchTerms: "yuji itadori twixtor clips episode 1 jujutsu kaisen season 3 yuji itadori", type: "twixtor", anime: "jjk", animeDisplay: "Jujutsu Kaisen", characters: ["Yuji Itadori"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Jujutsu Kaisen", style: "text-red-400 bg-red-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T12:00:00Z", youtubeId: "F8lAqYCTlNw", driveUrl: "https://drive.google.com/file/d/1emBKkPzCUlg85mTsT-3Qx1npK4pzlWgG/view" },
       { id: "jjk2", title: "Naoya Zenin Twixtor Clips Episode 1", searchTerms: "naoya zenin twixtor clips episode 1 jujutsu kaisen season 3 naoya zenin", type: "twixtor", anime: "jjk", animeDisplay: "Jujutsu Kaisen", characters: ["Naoya Zenin"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Jujutsu Kaisen", style: "text-red-400 bg-red-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T12:30:00Z", youtubeId: "4teSn5yaTN4", driveUrl: "https://drive.google.com/file/d/1butTL-hYcLNGEXrbSm9_oyn6okEhGz5I/view" },
       { id: "jjk3", title: "Yuta Okkotsu Twixtor Clips Episode 1 And 2", searchTerms: "yuta okkotsu twixtor clips episode 1 and 2 jujutsu kaisen season 3 yuta okkotsu", type: "twixtor", anime: "jjk", animeDisplay: "Jujutsu Kaisen", characters: ["Yuta Okkotsu"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Jujutsu Kaisen", style: "text-red-400 bg-red-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T13:00:00Z", youtubeId: "iH14fy_JkGE", driveUrl: "https://drive.google.com/file/d/1KeclvlcoMDYITlXCk_bBVCvkwfERCjwk/view" },
       { id: "jjk4", title: "Jujutsu Kaisen Season 3 Opening Twixtor Clips", searchTerms: "jujutsu kaisen season 3 opening twixtor clips op theme", type: "twixtor", anime: "jjk", animeDisplay: "Jujutsu Kaisen", characters: ["Opening", "Various Characters"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Jujutsu Kaisen", style: "text-red-400 bg-red-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T13:30:00Z", youtubeId: "-3113MIsymE", driveUrl: "https://drive.google.com/file/d/1M2S0ZUj5vjBeKubKZUZ0Hk-LfOZlUnNz/view" },
       { id: "jjk5", title: "Yuki Tsukumo Twixtor Clips Episode 3", searchTerms: "yuki tsukumo twixtor clips episode 3 jujutsu kaisen season 3 yuki tsukumo", type: "twixtor", anime: "jjk", animeDisplay: "Jujutsu Kaisen", characters: ["Yuki Tsukumo"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Jujutsu Kaisen", style: "text-red-400 bg-red-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T14:00:00Z", youtubeId: "TObJ9uKeMVg", driveUrl: "https://drive.google.com/file/d/1X3qJKwpnv3Y2VGS6Sr9cGYBk9Ya5ok3h/view" },
       { id: "jjk6", title: "Shoko Ieiri Twixtor Clips Episode 3", searchTerms: "shoko ieiri twixtor clips episode 3 jujutsu kaisen season 3 shoko ieiri", type: "twixtor", anime: "jjk", animeDisplay: "Jujutsu Kaisen", characters: ["Shoko Ieiri"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Jujutsu Kaisen", style: "text-red-400 bg-red-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-28T14:30:00Z", youtubeId: "zmzZLhaz7vo", driveUrl: "https://drive.google.com/file/d/1kx4AF6j3gRHJRvEW95p-gXvDZpoE1FfO/view" },
+      // Alya
       { id: "alya1", title: "Alya Twixtor Episode 1", searchTerms: "alya twixtor episode 1 alya sometimes hides her feelings in russian alisa mikhailovna kujou masachika kuze anime pack", type: "twixtor", anime: "alya", animeDisplay: "Alya Sometimes Hides Her Feelings in Russian", characters: ["Alisa Mikhailovna Kujou (Alya)", "Masachika Kuze"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Alya Sometimes Hides Her Feelings in Russian", style: "text-blue-400 bg-blue-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T16:36:00Z", youtubeId: "5tBNdOgHOJM", driveUrl: "https://drive.google.com/file/d/1fawX_U44Stwgl8sQTWJ4HV-2lvAXcATx/view" },
       { id: "alya2", title: "Yuki Suou Twixtor Clips Episode 1", searchTerms: "yuki suou twixtor clips episode 1 alya sometimes hides her feelings in russian yuki suou", type: "twixtor", anime: "alya", animeDisplay: "Alya Sometimes Hides Her Feelings in Russian", characters: ["Yuki Suou"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Alya Sometimes Hides Her Feelings in Russian", style: "text-blue-400 bg-blue-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T16:18:53Z", youtubeId: "y0xCYREst8U", driveUrl: "https://drive.google.com/file/d/1eQ7GhV-b3Kj_1A21Yna1mzCM65zgiImH/view" },
+      // Oshi no Ko
       { id: "oshi1", title: "Oshi No Ko Twixtor Clips Episode 3", searchTerms: "oshi no ko twixtor clips episode 3 ai hoshino ruby aqua kana arima akane kurokawa", type: "twixtor", anime: "oshi-no-ko", animeDisplay: "Oshi no Ko", characters: ["Ai Hoshino", "Ruby Hoshino", "Aqua Hoshino"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Oshi no Ko", style: "text-pink-400 bg-pink-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T16:36:00Z", youtubeId: "dfDTIrg_xHI", driveUrl: "https://drive.google.com/file/d/1RlCgj9GbWQSilk7TMJ9sjMPMx2Hxck5w/view" },
       { id: "oshi2", title: "Akane Twixtor Clips Season 2 Episode 1", searchTerms: "akane twixtor clips season 2 episode 1 oshi no ko akane kurokawa", type: "twixtor", anime: "oshi-no-ko", animeDisplay: "Oshi no Ko", characters: ["Akane Kurokawa"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Oshi no Ko", style: "text-pink-400 bg-pink-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T00:57:00Z", youtubeId: "11pdKkWiNME", driveUrl: "https://drive.google.com/file/d/1KDaZF3-Rp9CA7mkYopKcv0EKV1__Zjiv/view" },
+      // Wind Breaker
       { id: "wind1", title: "Umemiya Twixtor Clips For Editing", searchTerms: "umemiya twixtor clips for editing wind breaker hajime umemiya sakura haruka", type: "twixtor", anime: "wind-breaker", animeDisplay: "Wind Breaker", characters: ["Hajime Umemiya", "Sakura Haruka"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Wind Breaker", style: "text-amber-400 bg-amber-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-18T02:50:00Z", youtubeId: "c_fyUHUlo8Y", driveUrl: "https://drive.google.com/file/d/15kR5EoETswrl_maync7Gc9-Qt-dHFNy_/view" },
+      // Demon Slayer
       { id: "ds1", title: "Shinobu Kocho Twixtor Clips Season 4 Episode 1", searchTerms: "shinobu kocho twixtor clips season 4 episode 1 demon slayer shinobu kocho insect hashira", type: "twixtor", anime: "demon-slayer", animeDisplay: "Demon Slayer", characters: ["Shinobu Kocho"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-18T02:45:00Z", youtubeId: "5M8lPS9YDrw", driveUrl: "https://drive.google.com/file/d/1y4NdgQNkqXXcyL0ZGUbRoexH8OHmCfr9/view?usp=sharing" },
       { id: "ds2", title: "Obanai Iguro & Sanemi Shinazugawa", searchTerms: "demon slayer obanai iguro sanemi shinazugawa hashira anime pack twixtor ep 1 serpent hashira wind hashira", type: "twixtor", anime: "demon-slayer", animeDisplay: "Demon Slayer", characters: ["Obanai Iguro", "Sanemi Shinazugawa"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-18T02:25:00Z", youtubeId: "yZNhFXHgdVE", driveUrl: "https://drive.google.com/file/d/1g6TYS85yannzi3M7mh7tRgaFCdI-jOL0/view" },
       { id: "ds3", title: "Ubuyashiki Family House Blows Up Twixtor Clips Episode 8", searchTerms: "ubuyashiki family house blows up twixtor clips episode 8 demon slayer kagaya ubuyashiki", type: "twixtor", anime: "demon-slayer", animeDisplay: "Demon Slayer", characters: ["Kagaya Ubuyashiki", "Hinaki Ubuyashiki", "Nichika Ubuyashiki"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T13:30:00Z", youtubeId: "vCnPM-KnTuE", driveUrl: "https://drive.google.com/file/d/1LkKmdCUIKTgK_ERpleJeEZU-fz3x4EF4/view" },
+      // NEW: Giyu And Tanjiro vs Akaza Fight Raw Clips (Demon Slayer Infinity Castle)
+      { id: "ds4", title: "Giyu And Tanjiro vs Akaza Fight Raw Clips", searchTerms: "giyu tanjiro vs akaza fight raw clips demon slayer infinity castle giyu tomioka tanjiro kamado akaza", type: "raw", anime: "demon-slayer", animeDisplay: "Demon Slayer", characters: ["Giyu Tomioka", "Tanjiro Kamado", "Akaza"], badgeLeft: { text: "Raw", style: "text-green-400 bg-green-500/10" }, badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" }, specs: "1080p • Original Framerate • Raw Unedited", date: "2026-05-29T10:00:00Z", youtubeId: "9W6CNGlB10Y", driveUrl: "https://drive.google.com/file/d/17ZxJd2nLBI5qtZdAQD5t-OTL8pHo-npC/view" },
+      // Suicide Squad Isekai
       { id: "ss1", title: "Suicide Squad Isekai Harley Quinn and Joker Twixtor Clips", searchTerms: "suicide squad isekai harley quinn joker twixtor clips anime pack harley quinn joker", type: "twixtor", anime: "suicide-squad-isekai", animeDisplay: "Suicide Squad Isekai", characters: ["Harley Quinn", "Joker"], badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" }, badgeRight: { text: "Suicide Squad Isekai", style: "text-green-400 bg-green-500/10" }, specs: "1080p • 60fps • Twixtor Ready", date: "2026-05-27T14:00:00Z", youtubeId: "uxCyJoa9W3g", driveUrl: "https://drive.google.com/file/d/1C_sK894lP5OA9lMDWvaQ5RxFY0S5oRIf/view" }
     ];
 
-    const STORAGE_KEY = 'jekhi_comments_final_v13';
+    const STORAGE_KEY = 'jekhi_comments_final_v16';
     let commentIdCounter = 0;
     
     function loadComments() {
@@ -575,9 +452,6 @@
     updateTypeButtons();
     updateAnimeButtons();
     refreshFilters();
-    
-    // Run adblocker detection
-    detectAdBlocker();
   })();
 </script>
 </body>
