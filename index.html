@@ -1,1143 +1,588 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
   <meta charset="UTF-8">
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-
   <title>JekhiEditsTwixtor | Premium 1080p 60FPS Scenepacks</title>
-
   <script src="https://cdn.tailwindcss.com"></script>
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
-
     body {
-
       background-color: #0a0d14;
-
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-
     }
-
     .glow-effect:hover {
-
       box-shadow: 0 0 25px rgba(99, 102, 241, 0.35);
-
       border-color: rgba(99, 102, 241, 0.5);
-
     }
-
     select {
-
       appearance: none;
-
       background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-
       background-repeat: no-repeat;
-
       background-position: right 1rem center;
-
       background-size: 1em;
-
     }
-
     .comment-section {
-
       border-top: 1px solid #1f2937;
-
       margin-top: 1rem;
-
       padding-top: 1rem;
-
     }
-
     .comment-bubble {
-
       background: #1a1f2e;
-
       border-radius: 0.75rem;
-
     }
-
     .edit-input {
-
       background: #0f1320;
-
       border: 1px solid #4f46e5;
-
     }
-
   </style>
-
 </head>
-
 <body class="text-gray-200 min-h-screen flex flex-col">
 
-
-
 <header class="border-b border-gray-900 bg-[#0e111a] sticky top-0 z-50">
-
   <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-
     <a href="#" class="text-xl md:text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500">
-
       JEKHI<span class="text-white font-light">EDITS</span><span class="text-indigo-400 font-extrabold text-sm align-super">TWIXTOR</span>
-
     </a>
-
     <nav class="flex gap-6 text-sm font-medium text-gray-400">
-
       <a href="#" class="hover:text-indigo-400 transition">Home</a>
-
       <a href="https://www.youtube.com/@jekhieditstwixtor" target="_blank" class="hover:text-indigo-400 transition"><i class="fab fa-youtube"></i> YouTube</a>
-
       <a href="https://www.instagram.com/jekhi.ae/" target="_blank" class="hover:text-indigo-400 transition"><i class="fab fa-instagram"></i> Instagram</a>
-
     </nav>
-
   </div>
-
 </header>
 
-
-
 <section class="max-w-5xl mx-auto text-center px-4 py-20 w-full">
-
   <div class="inline-block bg-indigo-500/10 border border-indigo-500/20 rounded-full px-4 py-1 text-xs font-semibold text-indigo-400 mb-6 tracking-wide uppercase">
-
     🚀 The Ultimate Editor Vault
-
   </div>
-
   <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight max-w-4xl mx-auto">
-
     Free 1080p 60FPS <span class="text-green-500">Anime</span> <span class="text-indigo-500">Twixtor</span> Clips 
-
     <span class="block mt-2 md:inline md:mt-0">&amp; Original Framerate <span class="text-indigo-500">Raw</span> Clips</span>
-
   </h1>
-
   <p class="text-gray-400 md:text-lg mb-2 tracking-wide">Smooth clips. Perfect for velocity and synchronization edits.</p>
-
   <p class="text-green-500 md:text-lg font-semibold mb-10 tracking-wider">without subtitles • for editing</p>
-
   <div class="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto items-center justify-center">
-
     <div class="relative w-full sm:flex-grow">
-
       <i class="fas fa-search absolute left-4 top-4 text-gray-500"></i>
-
       <input type="text" id="searchInput" placeholder="Search your favorite clips..." 
-
              class="w-full bg-[#121622] border border-gray-800 rounded-full pl-12 pr-4 py-3 text-white focus:outline-none focus:border-indigo-500 transition shadow-inner">
-
     </div>
-
     <div class="relative w-full sm:w-48 shrink-0">
-
       <select id="sortSelect" class="w-full bg-[#121622] border border-gray-800 rounded-full pl-4 pr-10 py-3 text-sm text-gray-300 focus:outline-none focus:border-indigo-500 transition cursor-pointer">
-
         <option value="default">Sort By: Default</option>
-
         <option value="recent">Newest Uploads</option>
-
         <option value="size-asc">Size: Small to Large</option>
-
         <option value="size-desc">Size: Large to Small</option>
-
       </select>
-
     </div>
-
   </div>
-
 </section>
 
-
-
 <div class="max-w-4xl mx-auto px-4 mb-12 flex flex-col gap-4 items-center">
-
   <div class="flex flex-wrap justify-center gap-2.5">
-
     <button onclick="filterCategory('all', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold bg-indigo-600 text-white transition">Home</button>
-
     <button onclick="filterCategory('twixtor', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Twixtor Clips</button>
-
     <button onclick="filterCategory('raw', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Raw Clips</button>
-
   </div>
-
-
 
   <div class="flex flex-wrap justify-center gap-2.5 border-t border-gray-900/50 pt-3 w-full">
-
     <span class="text-xs text-gray-600 uppercase tracking-widest font-bold self-center mr-2">Anime:</span>
-
     <button onclick="filterCategory('demon-slayer', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Demon Slayer</button>
-
     <button onclick="filterCategory('jjk', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Jujutsu Kaisen</button>
-
     <button onclick="filterCategory('naruto', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Naruto</button>
-
     <button onclick="filterCategory('wind-breaker', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Wind Breaker</button>
-
     <button onclick="filterCategory('suicide-squad-isekai', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Suicide Squad Isekai</button>
-
+    <button onclick="filterCategory('oshi-no-ko', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Oshi no Ko</button>
   </div>
-
 </div>
-
-
 
 <main id="clipGrid" class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-
 </main>
 
-
-
 <div class="w-full flex justify-center pt-8 pb-24">
-
   <button id="loadMoreBtn" onclick="loadMoreClips()" class="bg-[#121622] hover:bg-indigo-600 border border-gray-800 hover:border-indigo-500 text-gray-300 hover:text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 flex items-center gap-2">
-
     <span>Show More Packs</span> <i class="fas fa-chevron-down text-xs"></i>
-
   </button>
-
 </div>
 
-
-
 <footer class="border-t border-gray-900 bg-[#0e111a] text-center py-6 text-xs text-gray-500 mt-auto">
-
   <p>&copy; 2026 JekhiEditsTwixtor. All rights reserved. Built for the editing community.</p>
-
 </footer>
 
-
-
 <script>
-
   (function() {
-
     const urlParams = new URLSearchParams(window.location.search);
-
     const isAdmin = urlParams.get('admin') === 'jekhi';
 
-
-
     // ---------- ORIGINAL VIDEO DATABASE ----------
-
     const videoDatabase = [
-
+      // NEW VIDEO ENTRY ADDED HERE
       {
-
-        title: "Umemiya Twixtor Clips For Editing (Wind Breaker)",
-
-        searchTerms: "umemiya twixtor clips for editing wind breaker anime pack jekhi edits",
-
-        category: "twixtor wind-breaker",
-
+        title: "Akane Twixtor Clips Season 2 Episode 1 (Oshi no Ko)",
+        searchTerms: "akane twixtor clips season 2 episode 1 oshi no ko anime pack jekhi edits",
+        category: "twixtor oshi-no-ko",
         badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
-
-        badgeRight: { text: "Wind Breaker", style: "text-amber-400 bg-amber-500/10" },
-
+        badgeRight: { text: "Oshi no Ko", style: "text-pink-400 bg-pink-500/10" },
         specs: "1080p • 60fps • Twixtor Ready",
-
-        date: "2026-05-18T08:20:00+05:30",
-
-        displayDate: "May 18, 2026 at 08:20 AM IST",
-
-        size: 95,
-
-        views: "600",
-
-        youtubeId: "c_fyUHUlo8Y",
-
-        driveUrl: "https://drive.google.com/file/d/15kR5EoETswrl_maync7Gc9-Qt-dHFNy_/view"
-
-      },
-
-      {
-
-        title: "Shinobu Kocho Twixtor Clips Season 4 Episode 1",
-
-        searchTerms: "shinobu kocho twixtor clips season 4 episode 1 demon slayer anime pack jekhi edits",
-
-        category: "twixtor demon-slayer",
-
-        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
-
-        badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" },
-
-        specs: "1080p • 60fps • Twixtor Ready",
-
-        date: "2026-05-18T08:15:00+05:30",
-
-        displayDate: "May 18, 2026 at 08:15 AM IST",
-
-        size: 90,
-
-        views: "1.2K",
-
-        youtubeId: "5M8lPS9YDrw",
-
-        driveUrl: "https://drive.google.com/file/d/1y4NdgQNkqXXcyL0ZGUbRoexH8OHmCfr9/view?usp=sharing"
-
-      },
-
-      {
-
-        title: "Obanai Iguro & Sanemi Shinazugawa (Ep 1)",
-
-        searchTerms: "demon slayer obanai iguro sanemi shinazugawa hashira anime pack twixtor ep 1",
-
-        category: "twixtor demon-slayer",
-
-        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
-
-        badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" },
-
-        specs: "1080p • 60fps • Twixtor Ready",
-
-        date: "2026-05-18T07:55:00+05:30",
-
-        displayDate: "May 18, 2026 at 07:55 AM IST",
-
-        size: 70,
-
-        views: "14.2K",
-
-        youtubeId: "yZNhFXHgdVE",
-
-        driveUrl: "https://drive.google.com/file/d/1g6TYS85yannzi3M7mh7tRgaFCdI-jOL0/view"
-
-      },
-
-      {
-
-        title: "Ubuyashiki Family House Blows Up Twixtor Clips Episode 8",
-
-        searchTerms: "ubuyashiki family house blows up twixtor clips episode 8 demon slayer anime pack jekhi edits",
-
-        category: "twixtor demon-slayer",
-
-        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
-
-        badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" },
-
-        specs: "1080p • 60fps • Twixtor Ready",
-
-        date: "2026-05-27T19:00:00+05:30",
-
-        displayDate: "May 27, 2026 at 07:00 PM IST",
-
+        date: "2026-05-27T06:27:00+05:30",
+        displayDate: "May 27, 2026 at 06:27 AM IST",
         size: 85,
-
-        views: "2.5K",
-
-        youtubeId: "vCnPM-KnTuE",
-
-        driveUrl: "https://drive.google.com/file/d/1LkKmdCUIKTgK_ERpleJeEZU-fz3x4EF4/view"
-
+        views: "0",
+        youtubeId: "11pdKkWiNME",
+        driveUrl: "https://drive.google.com/file/d/1KDaZ..."
       },
-
       {
-
-        title: "Suicide Squad Isekai Harley Quinn and Joker Twixtor Clips",
-
-        searchTerms: "suicide squad isekai harley quinn joker twixtor clips anime pack jekhi edits",
-
-        category: "twixtor suicide-squad-isekai",
-
+        title: "Umemiya Twixtor Clips For Editing (Wind Breaker)",
+        searchTerms: "umemiya twixtor clips for editing wind breaker anime pack jekhi edits",
+        category: "twixtor wind-breaker",
         badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
-
-        badgeRight: { text: "Suicide Squad Isekai", style: "text-green-400 bg-green-500/10" },
-
+        badgeRight: { text: "Wind Breaker", style: "text-amber-400 bg-amber-500/10" },
         specs: "1080p • 60fps • Twixtor Ready",
-
+        date: "2026-05-18T08:20:00+05:30",
+        displayDate: "May 18, 2026 at 08:20 AM IST",
+        size: 95,
+        views: "600",
+        youtubeId: "c_fyUHUlo8Y",
+        driveUrl: "https://drive.google.com/file/d/15kR5EoETswrl_maync7Gc9-Qt-dHFNy_/view"
+      },
+      {
+        title: "Shinobu Kocho Twixtor Clips Season 4 Episode 1",
+        searchTerms: "shinobu kocho twixtor clips season 4 episode 1 demon slayer anime pack jekhi edits",
+        category: "twixtor demon-slayer",
+        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
+        badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" },
+        specs: "1080p • 60fps • Twixtor Ready",
+        date: "2026-05-18T08:15:00+05:30",
+        displayDate: "May 18, 2026 at 08:15 AM IST",
+        size: 90,
+        views: "1.2K",
+        youtubeId: "5M8lPS9YDrw",
+        driveUrl: "https://drive.google.com/file/d/1y4NdgQNkqXXcyL0ZGUbRoexH8OHmCfr9/view?usp=sharing"
+      },
+      {
+        title: "Obanai Iguro & Sanemi Shinazugawa (Ep 1)",
+        searchTerms: "demon slayer obanai iguro sanemi shinazugawa hashira anime pack twixtor ep 1",
+        category: "twixtor demon-slayer",
+        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
+        badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" },
+        specs: "1080p • 60fps • Twixtor Ready",
+        date: "2026-05-18T07:55:00+05:30",
+        displayDate: "May 18, 2026 at 07:55 AM IST",
+        size: 70,
+        views: "14.2K",
+        youtubeId: "yZNhFXHgdVE",
+        driveUrl: "https://drive.google.com/file/d/1g6TYS85yannzi3M7mh7tRgaFCdI-jOL0/view"
+      },
+      {
+        title: "Ubuyashiki Family House Blows Up Twixtor Clips Episode 8",
+        searchTerms: "ubuyashiki family house blows up twixtor clips episode 8 demon slayer anime pack jekhi edits",
+        category: "twixtor demon-slayer",
+        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
+        badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" },
+        specs: "1080p • 60fps • Twixtor Ready",
+        date: "2026-05-27T19:00:00+05:30",
+        displayDate: "May 27, 2026 at 07:00 PM IST",
+        size: 85,
+        views: "2.5K",
+        youtubeId: "vCnPM-KnTuE",
+        driveUrl: "https://drive.google.com/file/d/1LkKmdCUIKTgK_ERpleJeEZU-fz3x4EF4/view"
+      },
+      {
+        title: "Suicide Squad Isekai Harley Quinn and Joker Twixtor Clips",
+        searchTerms: "suicide squad isekai harley quinn joker twixtor clips anime pack jekhi edits",
+        category: "twixtor suicide-squad-isekai",
+        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
+        badgeRight: { text: "Suicide Squad Isekai", style: "text-green-400 bg-green-500/10" },
+        specs: "1080p • 60fps • Twixtor Ready",
         date: "2026-05-27T19:30:00+05:30",
-
         displayDate: "May 27, 2026 at 07:30 PM IST",
-
         size: 88,
-
         views: "1.8K",
-
         youtubeId: "uxCyJoa9W3g",
-
         driveUrl: "https://drive.google.com/file/d/1C_sK894lP5OA9lMDWvaQ5RxFY0S5oRIf/view"
-
       }
-
     ];
-
-
 
     videoDatabase.forEach((video, index) => video.defaultIndex = index);
 
-
-
     // ----- COMMENT STORAGE (with unique IDs) -----
-
     const commentStore = new Map();
-
     let commentIdCounter = 0;
 
-
-
     function getCommentsFor(videoId) {
-
       if (!commentStore.has(videoId)) {
-
         commentStore.set(videoId, []);
-
       }
-
       return commentStore.get(videoId);
-
     }
-
-
 
     function addCommentToVideo(videoId, name, text) {
-
       const comments = getCommentsFor(videoId);
-
       const newComment = {
-
         id: ++commentIdCounter,
-
         name: name.trim() || 'Anonymous',
-
         text: text.trim(),
-
         timestamp: new Date().toLocaleString()
-
       };
-
       comments.push(newComment);
-
       if (comments.length > 50) comments.shift();
-
       return newComment;
-
     }
-
-
 
     function updateComment(videoId, commentId, newText) {
-
       const comments = getCommentsFor(videoId);
-
       const comment = comments.find(c => c.id === commentId);
-
       if (comment) {
-
         comment.text = newText.trim();
-
         comment.edited = true;
-
       }
-
     }
-
-
 
     function deleteComment(videoId, commentId) {
-
       const comments = getCommentsFor(videoId);
-
       const index = comments.findIndex(c => c.id === commentId);
-
       if (index !== -1) {
-
         comments.splice(index, 1);
-
       }
-
     }
-
-
 
     // ----- DOM elements -----
-
     const searchInput = document.getElementById('searchInput');
-
     const sortSelect = document.getElementById('sortSelect');
-
     const clipGrid = document.getElementById('clipGrid');
-
     const loadMoreBtn = document.getElementById('loadMoreBtn');
 
-
-
     const CLIPS_PER_PAGE = 12;
-
     let visibleCount = CLIPS_PER_PAGE;
-
     let currentCategory = 'all';
-
     let searchQuery = '';
-
     let activePool = [...videoDatabase];
 
-
-
     function escapeHtml(text) {
-
       return String(text).replace(/[&<>"]/g, function(m) {
-
         if (m === '&') return '&amp;';
-
         if (m === '<') return '&lt;';
-
         if (m === '>') return '&gt;';
-
         if (m === '"') return '&quot;';
-
         return m;
-
       });
-
     }
-
-
 
     function createCardHtml(video) {
-
       const videoId = video.youtubeId;
-
       const comments = getCommentsFor(videoId);
-
       
-
       const viewsElement = isAdmin ? `<span class="text-[11px] text-indigo-400 font-semibold bg-indigo-500/10 px-2 py-0.5 rounded flex items-center gap-1"><i class="fas fa-eye text-[10px]"></i> ${video.views} Views</span>` : '';
 
-
-
       let commentsHtml = '';
-
       comments.slice().reverse().forEach(comment => {
-
         commentsHtml += `
-
           <div class="comment-bubble p-2 text-xs mb-2" data-comment-id="${comment.id}">
-
             <div class="flex justify-between items-center mb-1">
-
               <span class="font-semibold text-indigo-300">${escapeHtml(comment.name)}</span>
-
               <div class="flex items-center gap-2">
-
                 <span class="text-gray-500 text-[10px]">${escapeHtml(comment.timestamp)}${comment.edited ? ' (edited)' : ''}</span>
-
                 <button class="edit-comment-btn text-gray-500 hover:text-yellow-400 transition" data-comment-id="${comment.id}" data-video-id="${videoId}"><i class="fas fa-pen text-[10px]"></i></button>
-
                 <button class="delete-comment-btn text-gray-500 hover:text-red-400 transition" data-comment-id="${comment.id}" data-video-id="${videoId}"><i class="fas fa-trash text-[10px]"></i></button>
-
               </div>
-
             </div>
-
             <p class="text-gray-300 comment-text-display">${escapeHtml(comment.text)}</p>
-
             <div class="edit-mode hidden mt-1 flex gap-2">
-
               <input type="text" class="edit-comment-input edit-input w-full rounded px-2 py-1 text-xs text-white" value="${escapeHtml(comment.text)}" maxlength="200">
-
               <button class="save-edit-btn bg-green-600 hover:bg-green-700 text-white rounded px-2 py-1 text-xs font-semibold transition" data-comment-id="${comment.id}" data-video-id="${videoId}">Save</button>
-
               <button class="cancel-edit-btn bg-gray-600 hover:bg-gray-700 text-white rounded px-2 py-1 text-xs font-semibold transition" data-comment-id="${comment.id}" data-video-id="${videoId}">Cancel</button>
-
             </div>
-
           </div>
-
         `;
-
       });
-
-
 
       return `
-
         <div class="clip-card bg-[#121622] border border-gray-800/60 rounded-2xl overflow-hidden transition duration-300 glow-effect flex flex-col">
-
           <div class="aspect-video bg-gray-900 relative">
-
             <iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}" title="Clip Preview" frameborder="0" allow="encrypted-media" allowfullscreen loading="lazy"></iframe>
-
           </div>
-
           <div class="p-5 flex flex-col flex-grow">
-
             <div class="flex justify-between items-center w-full">
-
               <div class="flex gap-2">
-
                 <span class="text-[10px] font-bold uppercase tracking-wider ${video.badgeLeft.style} px-2 py-0.5 rounded">${video.badgeLeft.text}</span>
-
                 <span class="text-[10px] font-bold uppercase tracking-wider ${video.badgeRight.style} px-2 py-0.5 rounded">${video.badgeRight.text}</span>
-
               </div>
-
               ${viewsElement}
-
             </div>
-
             <h3 class="text-xl font-bold text-white mt-3">${video.title}</h3>
-
             <p class="text-xs text-gray-400 mt-1">${video.specs}</p>
-
             <p class="text-xs text-green-500 font-medium mt-0.5">without subtitles • for editing</p>
-
             <p class="text-[11px] text-gray-500 mt-1.5 flex items-center gap-1">
-
               <i class="far fa-clock"></i> Uploaded: ${video.displayDate}
-
             </p>
-
             <a href="${video.driveUrl}" target="_blank" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl flex justify-center items-center gap-2 transition">
-
               <i class="fas fa-download"></i> Download Clip
-
             </a>
-
             
-
             <div class="mt-3 pt-2 border-t border-gray-800">
-
               <button class="toggle-comments-btn text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1" data-video-id="${videoId}">
-
                 <i class="far fa-comment"></i> Comments (${comments.length}) <i class="fas fa-chevron-down text-[10px] transition-transform"></i>
-
               </button>
-
               <div class="comment-section hidden" id="comments-${videoId}">
-
                 <div class="max-h-40 overflow-y-auto custom-scroll mb-2" id="comments-list-${videoId}">
-
                   ${commentsHtml || '<p class="text-gray-500 text-xs italic">No comments yet. Be the first!</p>'}
-
                 </div>
-
                 <div class="flex gap-2 mt-2">
-
                   <input type="text" placeholder="Your name" class="comment-name-input w-1/3 bg-[#0f1320] border border-gray-700 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500" maxlength="20">
-
                   <input type="text" placeholder="Add a comment..." class="comment-text-input w-2/3 bg-[#0f1320] border border-gray-700 rounded-lg px-2 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500" maxlength="200">
-
                   <button class="submit-comment-btn bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg px-3 py-1.5 text-xs font-semibold transition" data-video-id="${videoId}">
-
                     <i class="fas fa-paper-plane"></i>
-
                   </button>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       `;
-
     }
-
-
 
     function refreshCommentList(videoId) {
-
       const commentsListDiv = document.getElementById(`comments-list-${videoId}`);
-
       const toggleBtn = document.querySelector(`.toggle-comments-btn[data-video-id="${videoId}"]`);
-
       if (!commentsListDiv) return;
-
       
-
       const comments = getCommentsFor(videoId);
-
       let html = '';
-
       comments.slice().reverse().forEach(comment => {
-
         html += `
-
           <div class="comment-bubble p-2 text-xs mb-2" data-comment-id="${comment.id}">
-
             <div class="flex justify-between items-center mb-1">
-
               <span class="font-semibold text-indigo-300">${escapeHtml(comment.name)}</span>
-
               <div class="flex items-center gap-2">
-
                 <span class="text-gray-500 text-[10px]">${escapeHtml(comment.timestamp)}${comment.edited ? ' (edited)' : ''}</span>
-
                 <button class="edit-comment-btn text-gray-500 hover:text-yellow-400 transition" data-comment-id="${comment.id}" data-video-id="${videoId}"><i class="fas fa-pen text-[10px]"></i></button>
-
                 <button class="delete-comment-btn text-gray-500 hover:text-red-400 transition" data-comment-id="${comment.id}" data-video-id="${videoId}"><i class="fas fa-trash text-[10px]"></i></button>
-
               </div>
-
             </div>
-
             <p class="text-gray-300 comment-text-display">${escapeHtml(comment.text)}</p>
-
             <div class="edit-mode hidden mt-1 flex gap-2">
-
               <input type="text" class="edit-comment-input edit-input w-full rounded px-2 py-1 text-xs text-white" value="${escapeHtml(comment.text)}" maxlength="200">
-
               <button class="save-edit-btn bg-green-600 hover:bg-green-700 text-white rounded px-2 py-1 text-xs font-semibold transition" data-comment-id="${comment.id}" data-video-id="${videoId}">Save</button>
-
               <button class="cancel-edit-btn bg-gray-600 hover:bg-gray-700 text-white rounded px-2 py-1 text-xs font-semibold transition" data-comment-id="${comment.id}" data-video-id="${videoId}">Cancel</button>
-
             </div>
-
           </div>
-
         `;
-
       });
-
       
-
       commentsListDiv.innerHTML = html || '<p class="text-gray-500 text-xs italic">No comments yet. Be the first!</p>';
-
       
-
       if (toggleBtn) {
-
         toggleBtn.innerHTML = `<i class="far fa-comment"></i> Comments (${comments.length}) <i class="fas fa-chevron-down text-[10px] transition-transform"></i>`;
-
       }
-
       
-
       attachCommentActionListeners(videoId);
-
     }
-
-
 
     function attachCommentActionListeners(videoId) {
-
       const container = document.getElementById(`comments-${videoId}`);
-
       if (!container) return;
-
-
 
       // Edit buttons
-
       container.querySelectorAll('.edit-comment-btn').forEach(btn => {
-
         btn.removeEventListener('click', handleEditClick);
-
         btn.addEventListener('click', handleEditClick);
-
       });
-
-
 
       // Delete buttons
-
       container.querySelectorAll('.delete-comment-btn').forEach(btn => {
-
         btn.removeEventListener('click', handleDeleteClick);
-
         btn.addEventListener('click', handleDeleteClick);
-
       });
-
-
 
       // Save edit buttons
-
       container.querySelectorAll('.save-edit-btn').forEach(btn => {
-
         btn.removeEventListener('click', handleSaveEdit);
-
         btn.addEventListener('click', handleSaveEdit);
-
       });
-
-
 
       // Cancel edit buttons
-
       container.querySelectorAll('.cancel-edit-btn').forEach(btn => {
-
         btn.removeEventListener('click', handleCancelEdit);
-
         btn.addEventListener('click', handleCancelEdit);
-
       });
-
     }
-
-
 
     function handleEditClick(e) {
-
       const btn = e.currentTarget;
-
       const commentId = parseInt(btn.getAttribute('data-comment-id'));
-
       const bubble = btn.closest('.comment-bubble');
-
       if (bubble) {
-
         bubble.querySelector('.comment-text-display').classList.add('hidden');
-
         bubble.querySelector('.edit-mode').classList.remove('hidden');
-
       }
-
     }
-
-
 
     function handleCancelEdit(e) {
-
       const btn = e.currentTarget;
-
       const bubble = btn.closest('.comment-bubble');
-
       if (bubble) {
-
         bubble.querySelector('.comment-text-display').classList.remove('hidden');
-
         bubble.querySelector('.edit-mode').classList.add('hidden');
-
         const input = bubble.querySelector('.edit-comment-input');
-
         const display = bubble.querySelector('.comment-text-display');
-
         if (input && display) {
-
           input.value = display.textContent;
-
         }
-
       }
-
     }
-
-
 
     function handleSaveEdit(e) {
-
       const btn = e.currentTarget;
-
       const videoId = btn.getAttribute('data-video-id');
-
       const commentId = parseInt(btn.getAttribute('data-comment-id'));
-
       const bubble = btn.closest('.comment-bubble');
-
       if (!bubble) return;
-
       
-
       const input = bubble.querySelector('.edit-comment-input');
-
       const newText = input.value.trim();
-
       if (newText === '') return;
-
       
-
       updateComment(videoId, commentId, newText);
-
       refreshCommentList(videoId);
-
     }
-
-
 
     function handleDeleteClick(e) {
-
       const btn = e.currentTarget;
-
       const videoId = btn.getAttribute('data-video-id');
-
       const commentId = parseInt(btn.getAttribute('data-comment-id'));
-
       
-
       if (confirm('Are you sure you want to delete this comment?')) {
-
         deleteComment(videoId, commentId);
-
         refreshCommentList(videoId);
-
       }
-
     }
-
-
 
     function attachGlobalCommentListeners() {
-
       // Toggle comments
-
       document.querySelectorAll('.toggle-comments-btn').forEach(btn => {
-
         btn.removeEventListener('click', handleToggleComments);
-
         btn.addEventListener('click', handleToggleComments);
-
       });
-
-
 
       // Submit comment
-
       document.querySelectorAll('.submit-comment-btn').forEach(btn => {
-
         btn.removeEventListener('click', handleSubmitComment);
-
         btn.addEventListener('click', handleSubmitComment);
-
       });
-
-
 
       // Attach edit/delete listeners for all visible comment sections
-
       document.querySelectorAll('[id^="comments-"]').forEach(section => {
-
         const videoId = section.id.replace('comments-', '');
-
         attachCommentActionListeners(videoId);
-
       });
-
     }
-
-
 
     function handleToggleComments(e) {
-
       const btn = e.currentTarget;
-
       const videoId = btn.getAttribute('data-video-id');
-
       const commentDiv = document.getElementById(`comments-${videoId}`);
-
       if (commentDiv) {
-
         commentDiv.classList.toggle('hidden');
-
         const icon = btn.querySelector('.fa-chevron-down');
-
         if (icon) {
-
           icon.style.transform = commentDiv.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
-
         }
-
       }
-
     }
-
-
 
     function handleSubmitComment(e) {
-
       const btn = e.currentTarget;
-
       const videoId = btn.getAttribute('data-video-id');
-
       const container = document.getElementById(`comments-${videoId}`);
-
       if (!container) return;
-
       
-
       const nameInput = container.querySelector('.comment-name-input');
-
       const textInput = container.querySelector('.comment-text-input');
-
       const name = nameInput.value.trim();
-
       const text = textInput.value.trim();
-
       if (text === '') return;
-
       
-
       addCommentToVideo(videoId, name || 'Anonymous', text);
-
       
-
       nameInput.value = '';
-
       textInput.value = '';
-
       
-
       refreshCommentList(videoId);
-
     }
-
-
 
     function filterAndSortRegistry() {
-
       activePool = videoDatabase.filter(video => {
-
         const matchesSearch = video.searchTerms.toLowerCase().includes(searchQuery);
-
         const categoriesList = video.category.split(' ');
-
         const matchesCategory = (currentCategory === 'all' || categoriesList.includes(currentCategory));
-
         return matchesSearch && matchesCategory;
-
       });
-
-
 
       const sortBy = sortSelect.value;
-
       if (sortBy === 'recent') {
-
         activePool.sort((a, b) => new Date(b.date) - new Date(a.date));
-
       } else if (sortBy === 'size-asc') {
-
         activePool.sort((a, b) => a.size - b.size);
-
       } else if (sortBy === 'size-desc') {
-
         activePool.sort((a, b) => b.size - a.size);
-
       } else {
-
         activePool.sort((a, b) => a.defaultIndex - b.defaultIndex);
-
       }
-
-
 
       visibleCount = CLIPS_PER_PAGE;
-
       renderGrid();
-
     }
-
-
 
     function renderGrid() {
-
       clipGrid.innerHTML = '';
-
       const sliceToRender = activePool.slice(0, visibleCount);
-
       if (sliceToRender.length === 0) {
-
         clipGrid.innerHTML = `<div class="col-span-full text-center text-gray-500 py-12">No matching scenepacks found.</div>`;
-
         loadMoreBtn.style.display = 'none';
-
         return;
-
       }
-
       sliceToRender.forEach(video => {
-
         clipGrid.insertAdjacentHTML('beforeend', createCardHtml(video));
-
       });
-
       
-
       attachGlobalCommentListeners();
-
       
-
       if (visibleCount >= activePool.length) {
-
         loadMoreBtn.style.display = 'none';
-
       } else {
-
         loadMoreBtn.style.display = 'flex';
-
       }
-
     }
 
-
-
     window.loadMoreClips = function() {
-
       visibleCount += CLIPS_PER_PAGE;
-
       renderGrid();
-
     };
 
-
-
     searchInput.addEventListener('input', (e) => {
-
       searchQuery = e.target.value.toLowerCase().trim();
-
       filterAndSortRegistry();
-
     });
-
-
 
     sortSelect.addEventListener('change', filterAndSortRegistry);
 
-
-
     window.filterCategory = function(category, element) {
-
       currentCategory = category;
-
       document.querySelectorAll('.cat-btn').forEach(btn => {
-
         btn.classList.remove('bg-indigo-600', 'text-white');
-
         btn.classList.add('bg-[#121622]', 'text-gray-400');
-
       });
-
       if (element) {
-
         element.classList.remove('bg-[#121622]', 'text-gray-400');
-
         element.classList.add('bg-indigo-600', 'text-white');
-
       }
-
       filterAndSortRegistry();
-
     };
 
-
-
     // Initial render
-
     filterAndSortRegistry();
-
   })();
-
 </script>
-
 </body>
-
-</html>  
+</html>
