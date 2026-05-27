@@ -35,12 +35,23 @@
       background: #0f1320;
       border: 1px solid #4f46e5;
     }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #1a1f2e;
+      border-radius: 10px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #4f46e5;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body class="text-gray-200 min-h-screen flex flex-col">
 
 <header class="border-b border-gray-900 bg-[#0e111a] sticky top-0 z-50">
-  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center flex-wrap gap-3">
     <a href="#" class="text-xl md:text-2xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500">
       JEKHI<span class="text-white font-light">EDITS</span><span class="text-indigo-400 font-extrabold text-sm align-super">TWIXTOR</span>
     </a>
@@ -114,19 +125,15 @@
 
 <script>
   (function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const isAdmin = urlParams.get('admin') === 'jekhi';
-
-    // Helper: format IST time and convert to local display (shows in viewer's local time)
+    // Helper: format IST time to local display
     function formatLocalTime(istISOString) {
-      // istISOString is stored as IST ISO string (e.g., 2026-05-27T22:06:00+05:30)
       const date = new Date(istISOString);
-      return date.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      return date.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     }
 
-    // ---------- ENHANCED VIDEO DATABASE with NEW Spy x Family clips ----------
+    // VIDEO DATABASE with NEW Spy x Family clips
     const videoDatabase = [
-      // --- NEW CLIP 1: Yor Caught Loid Kissing Twixtor Clips (Spy X Family Code:White) ---
+      // NEW CLIP 1: Yor Caught Loid Kissing
       {
         title: "Yor Caught Loid Kissing Twixtor Clips (Spy X Family Code: White)",
         searchTerms: "yor caught loid kissing twixtor clips spy x family code white anime pack jekhi edits",
@@ -134,15 +141,13 @@
         badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
         badgeRight: { text: "Spy x Family", style: "text-emerald-400 bg-emerald-500/10" },
         specs: "1080p • 60fps • Twixtor Ready",
-        // Upload time in IST: May 28, 2026 at 14:30 IST (example, you can modify but using current realistic time)
         date: "2026-05-28T14:30:00+05:30",
-        displayDateRaw: "2026-05-28T14:30:00+05:30",
         size: 92,
         views: "0",
         youtubeId: "15IFoMTddRA",
         driveUrl: "https://drive.google.com/file/d/1fueOfsq0Obcle4QrQpf4H-0SQ9PQAKye/view"
       },
-      // --- NEW CLIP 2: Yor and Loid Twixtor Clips (Spy X Family Code : White) ---
+      // NEW CLIP 2: Yor and Loid
       {
         title: "Yor and Loid Twixtor Clips (Spy X Family Code: White)",
         searchTerms: "yor and loid twixtor clips spy x family code white anime pack jekhi edits",
@@ -151,13 +156,12 @@
         badgeRight: { text: "Spy x Family", style: "text-emerald-400 bg-emerald-500/10" },
         specs: "1080p • 60fps • Twixtor Ready",
         date: "2026-05-28T15:45:00+05:30",
-        displayDateRaw: "2026-05-28T15:45:00+05:30",
         size: 95,
         views: "0",
         youtubeId: "QYww1s4xlhw",
         driveUrl: "https://drive.google.com/file/d/1v-Smxijuedm6usuhXEtAVUUO8kv-yRSs/view"
       },
-      // Existing clips below...
+      // Existing clips
       {
         title: "Alya Twixtor Episode 1 (Alya Sometimes Hides Her Feelings in Russian)",
         searchTerms: "alya twixtor episode 1 alya sometimes hides her feelings in russian anime pack jekhi edits",
@@ -277,21 +281,14 @@
       }
     ];
 
-    // Attach default index for sorting consistency
     videoDatabase.forEach((video, index) => video.defaultIndex = index);
-    // compute localized displayDate on the fly
-    function getDisplayDate(video) {
-      return formatLocalTime(video.date);
-    }
 
-    // ----- COMMENT STORAGE (with unique IDs) -----
+    // Comment System
     const commentStore = new Map();
     let commentIdCounter = 0;
 
     function getCommentsFor(videoId) {
-      if (!commentStore.has(videoId)) {
-        commentStore.set(videoId, []);
-      }
+      if (!commentStore.has(videoId)) commentStore.set(videoId, []);
       return commentStore.get(videoId);
     }
 
@@ -304,7 +301,6 @@
         timestamp: new Date().toLocaleString()
       };
       comments.push(newComment);
-      if (comments.length > 50) comments.shift();
       return newComment;
     }
 
@@ -320,9 +316,7 @@
     function deleteComment(videoId, commentId) {
       const comments = getCommentsFor(videoId);
       const index = comments.findIndex(c => c.id === commentId);
-      if (index !== -1) {
-        comments.splice(index, 1);
-      }
+      if (index !== -1) comments.splice(index, 1);
     }
 
     // DOM elements
@@ -331,18 +325,16 @@
     const clipGrid = document.getElementById('clipGrid');
     const loadMoreBtn = document.getElementById('loadMoreBtn');
 
-    const CLIPS_PER_PAGE = 12;
-    let visibleCount = CLIPS_PER_PAGE;
+    let visibleCount = 12;
     let currentCategory = 'all';
     let searchQuery = '';
     let activePool = [...videoDatabase];
 
     function escapeHtml(text) {
-      return String(text).replace(/[&<>"]/g, function(m) {
+      return String(text).replace(/[&<>]/g, function(m) {
         if (m === '&') return '&amp;';
         if (m === '<') return '&lt;';
         if (m === '>') return '&gt;';
-        if (m === '"') return '&quot;';
         return m;
       });
     }
@@ -350,14 +342,13 @@
     function createCardHtml(video) {
       const videoId = video.youtubeId;
       const comments = getCommentsFor(videoId);
-      const displayDateLocal = getDisplayDate(video);
-      const viewsElement = isAdmin ? `<span class="text-[11px] text-indigo-400 font-semibold bg-indigo-500/10 px-2 py-0.5 rounded flex items-center gap-1"><i class="fas fa-eye text-[10px]"></i> ${video.views} Views</span>` : '';
+      const displayDateLocal = formatLocalTime(video.date);
 
       let commentsHtml = '';
-      comments.slice().reverse().forEach(comment => {
+      [...comments].reverse().forEach(comment => {
         commentsHtml += `
           <div class="comment-bubble p-2 text-xs mb-2" data-comment-id="${comment.id}">
-            <div class="flex justify-between items-center mb-1">
+            <div class="flex justify-between items-center mb-1 flex-wrap gap-1">
               <span class="font-semibold text-indigo-300">${escapeHtml(comment.name)}</span>
               <div class="flex items-center gap-2">
                 <span class="text-gray-500 text-[10px]">${escapeHtml(comment.timestamp)}${comment.edited ? ' (edited)' : ''}</span>
@@ -381,14 +372,13 @@
             <iframe class="w-full h-full" src="https://www.youtube.com/embed/${videoId}" title="Clip Preview" frameborder="0" allow="encrypted-media" allowfullscreen loading="lazy"></iframe>
           </div>
           <div class="p-5 flex flex-col flex-grow">
-            <div class="flex justify-between items-center w-full">
+            <div class="flex justify-between items-center w-full flex-wrap gap-2">
               <div class="flex gap-2">
                 <span class="text-[10px] font-bold uppercase tracking-wider ${video.badgeLeft.style} px-2 py-0.5 rounded">${video.badgeLeft.text}</span>
                 <span class="text-[10px] font-bold uppercase tracking-wider ${video.badgeRight.style} px-2 py-0.5 rounded">${video.badgeRight.text}</span>
               </div>
-              ${viewsElement}
             </div>
-            <h3 class="text-xl font-bold text-white mt-3">${video.title}</h3>
+            <h3 class="text-xl font-bold text-white mt-3">${escapeHtml(video.title)}</h3>
             <p class="text-xs text-gray-400 mt-1">${video.specs}</p>
             <p class="text-xs text-green-500 font-medium mt-0.5">without subtitles • for editing</p>
             <p class="text-[11px] text-gray-500 mt-1.5 flex items-center gap-1">
@@ -427,10 +417,10 @@
       
       const comments = getCommentsFor(videoId);
       let html = '';
-      comments.slice().reverse().forEach(comment => {
+      [...comments].reverse().forEach(comment => {
         html += `
           <div class="comment-bubble p-2 text-xs mb-2" data-comment-id="${comment.id}">
-            <div class="flex justify-between items-center mb-1">
+            <div class="flex justify-between items-center mb-1 flex-wrap gap-1">
               <span class="font-semibold text-indigo-300">${escapeHtml(comment.name)}</span>
               <div class="flex items-center gap-2">
                 <span class="text-gray-500 text-[10px]">${escapeHtml(comment.timestamp)}${comment.edited ? ' (edited)' : ''}</span>
@@ -455,13 +445,182 @@
       attachCommentActionListeners(videoId);
     }
 
-    function attachCommentActionListeners(videoId) { /* same as original */ 
+    function attachCommentActionListeners(videoId) {
       const container = document.getElementById(`comments-${videoId}`);
       if (!container) return;
-      container.querySelectorAll('.edit-comment-btn').forEach(btn => { btn.removeEventListener('click', handleEditClick); btn.addEventListener('click', handleEditClick); });
-      container.querySelectorAll('.delete-comment-btn').forEach(btn => { btn.removeEventListener('click', handleDeleteClick); btn.addEventListener('click', handleDeleteClick); });
-      container.querySelectorAll('.save-edit-btn').forEach(btn => { btn.removeEventListener('click', handleSaveEdit); btn.addEventListener('click', handleSaveEdit); });
-      container.querySelectorAll('.cancel-edit-btn').forEach(btn => { btn.removeEventListener('click', handleCancelEdit); btn.addEventListener('click', handleCancelEdit); });
+      
+      container.querySelectorAll('.edit-comment-btn').forEach(btn => {
+        btn.removeEventListener('click', handleEditClick);
+        btn.addEventListener('click', handleEditClick);
+      });
+      container.querySelectorAll('.delete-comment-btn').forEach(btn => {
+        btn.removeEventListener('click', handleDeleteClick);
+        btn.addEventListener('click', handleDeleteClick);
+      });
+      container.querySelectorAll('.save-edit-btn').forEach(btn => {
+        btn.removeEventListener('click', handleSaveEdit);
+        btn.addEventListener('click', handleSaveEdit);
+      });
+      container.querySelectorAll('.cancel-edit-btn').forEach(btn => {
+        btn.removeEventListener('click', handleCancelEdit);
+        btn.addEventListener('click', handleCancelEdit);
+      });
     }
-    function handleEditClick(e) { const bubble = e.currentTarget.closest('.comment-bubble'); if(bubble){ bubble.querySelector('.comment-text-display').classList.add('hidden'); bubble.querySelector('.edit-mode').classList.remove('hidden'); } }
-    function handleCancelEdit(e) { const bubble = e.currentTarget.closest('.comment-bubble'); if(bubble){ bubble.querySelector('.comment-text-display').classList.remove('hidden'); bubble.querySelector('.edit-mode').classList.add('hidden'); const input = bubble.querySelector('.edit-comment-input'); const display = bubble.querySelector('.comment-text-display');
+
+    function handleEditClick(e) {
+      const btn = e.currentTarget;
+      const bubble = btn.closest('.comment-bubble');
+      if (bubble) {
+        bubble.querySelector('.comment-text-display').classList.add('hidden');
+        bubble.querySelector('.edit-mode').classList.remove('hidden');
+      }
+    }
+
+    function handleCancelEdit(e) {
+      const btn = e.currentTarget;
+      const bubble = btn.closest('.comment-bubble');
+      if (bubble) {
+        bubble.querySelector('.comment-text-display').classList.remove('hidden');
+        bubble.querySelector('.edit-mode').classList.add('hidden');
+        const input = bubble.querySelector('.edit-comment-input');
+        const display = bubble.querySelector('.comment-text-display');
+        if (input && display) {
+          input.value = display.textContent;
+        }
+      }
+    }
+
+    function handleSaveEdit(e) {
+      const btn = e.currentTarget;
+      const videoId = btn.getAttribute('data-video-id');
+      const commentId = parseInt(btn.getAttribute('data-comment-id'));
+      const bubble = btn.closest('.comment-bubble');
+      if (!bubble) return;
+      const input = bubble.querySelector('.edit-comment-input');
+      const newText = input.value.trim();
+      if (newText === '') return;
+      updateComment(videoId, commentId, newText);
+      refreshCommentList(videoId);
+    }
+
+    function handleDeleteClick(e) {
+      const btn = e.currentTarget;
+      const videoId = btn.getAttribute('data-video-id');
+      const commentId = parseInt(btn.getAttribute('data-comment-id'));
+      if (confirm('Are you sure you want to delete this comment?')) {
+        deleteComment(videoId, commentId);
+        refreshCommentList(videoId);
+      }
+    }
+
+    function attachGlobalCommentListeners() {
+      document.querySelectorAll('.toggle-comments-btn').forEach(btn => {
+        btn.removeEventListener('click', handleToggleComments);
+        btn.addEventListener('click', handleToggleComments);
+      });
+      document.querySelectorAll('.submit-comment-btn').forEach(btn => {
+        btn.removeEventListener('click', handleSubmitComment);
+        btn.addEventListener('click', handleSubmitComment);
+      });
+    }
+
+    function handleToggleComments(e) {
+      const btn = e.currentTarget;
+      const videoId = btn.getAttribute('data-video-id');
+      const commentDiv = document.getElementById(`comments-${videoId}`);
+      if (commentDiv) {
+        commentDiv.classList.toggle('hidden');
+        const icon = btn.querySelector('.fa-chevron-down');
+        if (icon) {
+          icon.style.transform = commentDiv.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+        }
+      }
+    }
+
+    function handleSubmitComment(e) {
+      const btn = e.currentTarget;
+      const videoId = btn.getAttribute('data-video-id');
+      const container = document.getElementById(`comments-${videoId}`);
+      if (!container) return;
+      const nameInput = container.querySelector('.comment-name-input');
+      const textInput = container.querySelector('.comment-text-input');
+      const name = nameInput.value.trim();
+      const text = textInput.value.trim();
+      if (text === '') return;
+      addCommentToVideo(videoId, name || 'Anonymous', text);
+      nameInput.value = '';
+      textInput.value = '';
+      refreshCommentList(videoId);
+    }
+
+    function filterAndSortRegistry() {
+      activePool = videoDatabase.filter(video => {
+        const matchesSearch = video.searchTerms.toLowerCase().includes(searchQuery);
+        const categoriesList = video.category.split(' ');
+        const matchesCategory = (currentCategory === 'all' || categoriesList.includes(currentCategory));
+        return matchesSearch && matchesCategory;
+      });
+
+      const sortBy = sortSelect.value;
+      if (sortBy === 'recent') {
+        activePool.sort((a, b) => new Date(b.date) - new Date(a.date));
+      } else if (sortBy === 'size-asc') {
+        activePool.sort((a, b) => a.size - b.size);
+      } else if (sortBy === 'size-desc') {
+        activePool.sort((a, b) => b.size - a.size);
+      } else {
+        activePool.sort((a, b) => a.defaultIndex - b.defaultIndex);
+      }
+      visibleCount = 12;
+      renderGrid();
+    }
+
+    function renderGrid() {
+      clipGrid.innerHTML = '';
+      const sliceToRender = activePool.slice(0, visibleCount);
+      if (sliceToRender.length === 0) {
+        clipGrid.innerHTML = `<div class="col-span-full text-center text-gray-500 py-12">No matching scenepacks found.</div>`;
+        loadMoreBtn.style.display = 'none';
+        return;
+      }
+      sliceToRender.forEach(video => {
+        clipGrid.insertAdjacentHTML('beforeend', createCardHtml(video));
+      });
+      attachGlobalCommentListeners();
+      if (visibleCount >= activePool.length) {
+        loadMoreBtn.style.display = 'none';
+      } else {
+        loadMoreBtn.style.display = 'flex';
+      }
+    }
+
+    window.loadMoreClips = function() {
+      visibleCount += 12;
+      renderGrid();
+    };
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      filterAndSortRegistry();
+    });
+
+    sortSelect.addEventListener('change', filterAndSortRegistry);
+
+    window.filterCategory = function(category, element) {
+      currentCategory = category;
+      document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.classList.remove('bg-indigo-600', 'text-white');
+        btn.classList.add('bg-[#121622]', 'text-gray-400');
+      });
+      if (element) {
+        element.classList.remove('bg-[#121622]', 'text-gray-400');
+        element.classList.add('bg-indigo-600', 'text-white');
+      }
+      filterAndSortRegistry();
+    };
+
+    filterAndSortRegistry();
+  })();
+</script>
+</body>
+</html>
