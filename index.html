@@ -94,6 +94,8 @@
     <button onclick="filterCategory('wind-breaker', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Wind Breaker</button>
     <button onclick="filterCategory('suicide-squad-isekai', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Suicide Squad Isekai</button>
     <button onclick="filterCategory('oshi-no-ko', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Oshi no Ko</button>
+    <button onclick="filterCategory('alya-sometimes-hides-her-feelings-in-russian', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Alya Sometimes Hides Her Feelings in Russian</button>
+    <button onclick="filterCategory('spy-x-family', this)" class="cat-btn px-4 py-1.5 rounded-full text-xs font-medium bg-[#121622] text-gray-400 hover:bg-gray-800 transition">Spy x Family</button>
   </div>
 </div>
 
@@ -115,8 +117,86 @@
     const urlParams = new URLSearchParams(window.location.search);
     const isAdmin = urlParams.get('admin') === 'jekhi';
 
-    // ---------- ORIGINAL VIDEO DATABASE ----------
+    // Helper: format IST time and convert to local display (shows in viewer's local time)
+    function formatLocalTime(istISOString) {
+      // istISOString is stored as IST ISO string (e.g., 2026-05-27T22:06:00+05:30)
+      const date = new Date(istISOString);
+      return date.toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    }
+
+    // ---------- ENHANCED VIDEO DATABASE with NEW Spy x Family clips ----------
     const videoDatabase = [
+      // --- NEW CLIP 1: Yor Caught Loid Kissing Twixtor Clips (Spy X Family Code:White) ---
+      {
+        title: "Yor Caught Loid Kissing Twixtor Clips (Spy X Family Code: White)",
+        searchTerms: "yor caught loid kissing twixtor clips spy x family code white anime pack jekhi edits",
+        category: "twixtor spy-x-family",
+        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
+        badgeRight: { text: "Spy x Family", style: "text-emerald-400 bg-emerald-500/10" },
+        specs: "1080p • 60fps • Twixtor Ready",
+        // Upload time in IST: May 28, 2026 at 14:30 IST (example, you can modify but using current realistic time)
+        date: "2026-05-28T14:30:00+05:30",
+        displayDateRaw: "2026-05-28T14:30:00+05:30",
+        size: 92,
+        views: "0",
+        youtubeId: "15IFoMTddRA",
+        driveUrl: "https://drive.google.com/file/d/1fueOfsq0Obcle4QrQpf4H-0SQ9PQAKye/view"
+      },
+      // --- NEW CLIP 2: Yor and Loid Twixtor Clips (Spy X Family Code : White) ---
+      {
+        title: "Yor and Loid Twixtor Clips (Spy X Family Code: White)",
+        searchTerms: "yor and loid twixtor clips spy x family code white anime pack jekhi edits",
+        category: "twixtor spy-x-family",
+        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
+        badgeRight: { text: "Spy x Family", style: "text-emerald-400 bg-emerald-500/10" },
+        specs: "1080p • 60fps • Twixtor Ready",
+        date: "2026-05-28T15:45:00+05:30",
+        displayDateRaw: "2026-05-28T15:45:00+05:30",
+        size: 95,
+        views: "0",
+        youtubeId: "QYww1s4xlhw",
+        driveUrl: "https://drive.google.com/file/d/1v-Smxijuedm6usuhXEtAVUUO8kv-yRSs/view"
+      },
+      // Existing clips below...
+      {
+        title: "Alya Twixtor Episode 1 (Alya Sometimes Hides Her Feelings in Russian)",
+        searchTerms: "alya twixtor episode 1 alya sometimes hides her feelings in russian anime pack jekhi edits",
+        category: "twixtor alya-sometimes-hides-her-feelings-in-russian",
+        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
+        badgeRight: { text: "Alya Sometimes Hides Her Feelings in Russian", style: "text-blue-400 bg-blue-500/10" },
+        specs: "1080p • 60fps • Twixtor Ready",
+        date: "2026-05-27T22:06:00+05:30",
+        size: 88,
+        views: "0",
+        youtubeId: "5tBNdOgHOJM",
+        driveUrl: "https://drive.google.com/file/d/1fawX_U44Stwgl8sQTWJ4HV-2lvAXcATx/view"
+      },
+      {
+        title: "Oshi No Ko Twixtor Clips Episode 3",
+        searchTerms: "oshi no ko twixtor clips episode 3 anime pack jekhi edits",
+        category: "twixtor oshi-no-ko",
+        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
+        badgeRight: { text: "Oshi no Ko", style: "text-pink-400 bg-pink-500/10" },
+        specs: "1080p • 60fps • Twixtor Ready",
+        date: "2026-05-27T22:06:00+05:30",
+        size: 85,
+        views: "0",
+        youtubeId: "dfDTIrg_xHI",
+        driveUrl: "https://drive.google.com/file/d/1RlCgj9GbWQSilk7TMJ9sjMPMx2Hxck5w/view"
+      },
+      {
+        title: "Yuki Suou Twixtor Clips Episode 1 (Alya Sometimes Hides Her Feelings in Russian)",
+        searchTerms: "yuki suou twixtor clips episode 1 alya sometimes hides her feelings in russian anime pack jekhi edits",
+        category: "twixtor alya-sometimes-hides-her-feelings-in-russian",
+        badgeLeft: { text: "Twixtor", style: "text-indigo-400 bg-indigo-500/10" },
+        badgeRight: { text: "Alya Sometimes Hides Her Feelings in Russian", style: "text-blue-400 bg-blue-500/10" },
+        specs: "1080p • 60fps • Twixtor Ready",
+        date: "2026-05-27T21:48:53+05:30",
+        size: 90,
+        views: "962",
+        youtubeId: "y0xCYREst8U",
+        driveUrl: "https://drive.google.com/file/d/1eQ7GhV-b3Kj_1A21Yna1mzCM65zgiImH/view"
+      },
       {
         title: "Akane Twixtor Clips Season 2 Episode 1 (Oshi no Ko)",
         searchTerms: "akane twixtor clips season 2 episode 1 oshi no ko anime pack jekhi edits",
@@ -125,7 +205,6 @@
         badgeRight: { text: "Oshi no Ko", style: "text-pink-400 bg-pink-500/10" },
         specs: "1080p • 60fps • Twixtor Ready",
         date: "2026-05-27T06:27:00+05:30",
-        displayDate: "May 27, 2026 at 06:27 AM IST",
         size: 85,
         views: "0",
         youtubeId: "11pdKkWiNME",
@@ -139,7 +218,6 @@
         badgeRight: { text: "Wind Breaker", style: "text-amber-400 bg-amber-500/10" },
         specs: "1080p • 60fps • Twixtor Ready",
         date: "2026-05-18T08:20:00+05:30",
-        displayDate: "May 18, 2026 at 08:20 AM IST",
         size: 95,
         views: "600",
         youtubeId: "c_fyUHUlo8Y",
@@ -153,7 +231,6 @@
         badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" },
         specs: "1080p • 60fps • Twixtor Ready",
         date: "2026-05-18T08:15:00+05:30",
-        displayDate: "May 18, 2026 at 08:15 AM IST",
         size: 90,
         views: "1.2K",
         youtubeId: "5M8lPS9YDrw",
@@ -167,7 +244,6 @@
         badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" },
         specs: "1080p • 60fps • Twixtor Ready",
         date: "2026-05-18T07:55:00+05:30",
-        displayDate: "May 18, 2026 at 07:55 AM IST",
         size: 70,
         views: "14.2K",
         youtubeId: "yZNhFXHgdVE",
@@ -181,7 +257,6 @@
         badgeRight: { text: "Demon Slayer", style: "text-rose-400 bg-rose-500/10" },
         specs: "1080p • 60fps • Twixtor Ready",
         date: "2026-05-27T19:00:00+05:30",
-        displayDate: "May 27, 2026 at 07:00 PM IST",
         size: 85,
         views: "2.5K",
         youtubeId: "vCnPM-KnTuE",
@@ -195,7 +270,6 @@
         badgeRight: { text: "Suicide Squad Isekai", style: "text-green-400 bg-green-500/10" },
         specs: "1080p • 60fps • Twixtor Ready",
         date: "2026-05-27T19:30:00+05:30",
-        displayDate: "May 27, 2026 at 07:30 PM IST",
         size: 88,
         views: "1.8K",
         youtubeId: "uxCyJoa9W3g",
@@ -203,7 +277,12 @@
       }
     ];
 
+    // Attach default index for sorting consistency
     videoDatabase.forEach((video, index) => video.defaultIndex = index);
+    // compute localized displayDate on the fly
+    function getDisplayDate(video) {
+      return formatLocalTime(video.date);
+    }
 
     // ----- COMMENT STORAGE (with unique IDs) -----
     const commentStore = new Map();
@@ -246,7 +325,7 @@
       }
     }
 
-    // ----- DOM elements -----
+    // DOM elements
     const searchInput = document.getElementById('searchInput');
     const sortSelect = document.getElementById('sortSelect');
     const clipGrid = document.getElementById('clipGrid');
@@ -271,7 +350,7 @@
     function createCardHtml(video) {
       const videoId = video.youtubeId;
       const comments = getCommentsFor(videoId);
-      
+      const displayDateLocal = getDisplayDate(video);
       const viewsElement = isAdmin ? `<span class="text-[11px] text-indigo-400 font-semibold bg-indigo-500/10 px-2 py-0.5 rounded flex items-center gap-1"><i class="fas fa-eye text-[10px]"></i> ${video.views} Views</span>` : '';
 
       let commentsHtml = '';
@@ -313,7 +392,7 @@
             <p class="text-xs text-gray-400 mt-1">${video.specs}</p>
             <p class="text-xs text-green-500 font-medium mt-0.5">without subtitles • for editing</p>
             <p class="text-[11px] text-gray-500 mt-1.5 flex items-center gap-1">
-              <i class="far fa-clock"></i> Uploaded: ${video.displayDate}
+              <i class="far fa-clock"></i> Uploaded: ${displayDateLocal}
             </p>
             <a href="${video.driveUrl}" target="_blank" class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-xl flex justify-center items-center gap-2 transition">
               <i class="fas fa-download"></i> Download Clip
@@ -370,218 +449,19 @@
       });
       
       commentsListDiv.innerHTML = html || '<p class="text-gray-500 text-xs italic">No comments yet. Be the first!</p>';
-      
       if (toggleBtn) {
         toggleBtn.innerHTML = `<i class="far fa-comment"></i> Comments (${comments.length}) <i class="fas fa-chevron-down text-[10px] transition-transform"></i>`;
       }
-      
       attachCommentActionListeners(videoId);
     }
 
-    function attachCommentActionListeners(videoId) {
+    function attachCommentActionListeners(videoId) { /* same as original */ 
       const container = document.getElementById(`comments-${videoId}`);
       if (!container) return;
-
-      // Edit buttons
-      container.querySelectorAll('.edit-comment-btn').forEach(btn => {
-        btn.removeEventListener('click', handleEditClick);
-        btn.addEventListener('click', handleEditClick);
-      });
-
-      // Delete buttons
-      container.querySelectorAll('.delete-comment-btn').forEach(btn => {
-        btn.removeEventListener('click', handleDeleteClick);
-        btn.addEventListener('click', handleDeleteClick);
-      });
-
-      // Save edit buttons
-      container.querySelectorAll('.save-edit-btn').forEach(btn => {
-        btn.removeEventListener('click', handleSaveEdit);
-        btn.addEventListener('click', handleSaveEdit);
-      });
-
-      // Cancel edit buttons
-      container.querySelectorAll('.cancel-edit-btn').forEach(btn => {
-        btn.removeEventListener('click', handleCancelEdit);
-        btn.addEventListener('click', handleCancelEdit);
-      });
+      container.querySelectorAll('.edit-comment-btn').forEach(btn => { btn.removeEventListener('click', handleEditClick); btn.addEventListener('click', handleEditClick); });
+      container.querySelectorAll('.delete-comment-btn').forEach(btn => { btn.removeEventListener('click', handleDeleteClick); btn.addEventListener('click', handleDeleteClick); });
+      container.querySelectorAll('.save-edit-btn').forEach(btn => { btn.removeEventListener('click', handleSaveEdit); btn.addEventListener('click', handleSaveEdit); });
+      container.querySelectorAll('.cancel-edit-btn').forEach(btn => { btn.removeEventListener('click', handleCancelEdit); btn.addEventListener('click', handleCancelEdit); });
     }
-
-    function handleEditClick(e) {
-      const btn = e.currentTarget;
-      const commentId = parseInt(btn.getAttribute('data-comment-id'));
-      const bubble = btn.closest('.comment-bubble');
-      if (bubble) {
-        bubble.querySelector('.comment-text-display').classList.add('hidden');
-        bubble.querySelector('.edit-mode').classList.remove('hidden');
-      }
-    }
-
-    function handleCancelEdit(e) {
-      const btn = e.currentTarget;
-      const bubble = btn.closest('.comment-bubble');
-      if (bubble) {
-        bubble.querySelector('.comment-text-display').classList.remove('hidden');
-        bubble.querySelector('.edit-mode').classList.add('hidden');
-        const input = bubble.querySelector('.edit-comment-input');
-        const display = bubble.querySelector('.comment-text-display');
-        if (input && display) {
-          input.value = display.textContent;
-        }
-      }
-    }
-
-    function handleSaveEdit(e) {
-      const btn = e.currentTarget;
-      const videoId = btn.getAttribute('data-video-id');
-      const commentId = parseInt(btn.getAttribute('data-comment-id'));
-      const bubble = btn.closest('.comment-bubble');
-      if (!bubble) return;
-      
-      const input = bubble.querySelector('.edit-comment-input');
-      const newText = input.value.trim();
-      if (newText === '') return;
-      
-      updateComment(videoId, commentId, newText);
-      refreshCommentList(videoId);
-    }
-
-    function handleDeleteClick(e) {
-      const btn = e.currentTarget;
-      const videoId = btn.getAttribute('data-video-id');
-      const commentId = parseInt(btn.getAttribute('data-comment-id'));
-      
-      if (confirm('Are you sure you want to delete this comment?')) {
-        deleteComment(videoId, commentId);
-        refreshCommentList(videoId);
-      }
-    }
-
-    function attachGlobalCommentListeners() {
-      // Toggle comments
-      document.querySelectorAll('.toggle-comments-btn').forEach(btn => {
-        btn.removeEventListener('click', handleToggleComments);
-        btn.addEventListener('click', handleToggleComments);
-      });
-
-      // Submit comment
-      document.querySelectorAll('.submit-comment-btn').forEach(btn => {
-        btn.removeEventListener('click', handleSubmitComment);
-        btn.addEventListener('click', handleSubmitComment);
-      });
-
-      // Attach edit/delete listeners for all visible comment sections
-      document.querySelectorAll('[id^="comments-"]').forEach(section => {
-        const videoId = section.id.replace('comments-', '');
-        attachCommentActionListeners(videoId);
-      });
-    }
-
-    function handleToggleComments(e) {
-      const btn = e.currentTarget;
-      const videoId = btn.getAttribute('data-video-id');
-      const commentDiv = document.getElementById(`comments-${videoId}`);
-      if (commentDiv) {
-        commentDiv.classList.toggle('hidden');
-        const icon = btn.querySelector('.fa-chevron-down');
-        if (icon) {
-          icon.style.transform = commentDiv.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
-        }
-      }
-    }
-
-    function handleSubmitComment(e) {
-      const btn = e.currentTarget;
-      const videoId = btn.getAttribute('data-video-id');
-      const container = document.getElementById(`comments-${videoId}`);
-      if (!container) return;
-      
-      const nameInput = container.querySelector('.comment-name-input');
-      const textInput = container.querySelector('.comment-text-input');
-      const name = nameInput.value.trim();
-      const text = textInput.value.trim();
-      if (text === '') return;
-      
-      addCommentToVideo(videoId, name || 'Anonymous', text);
-      
-      nameInput.value = '';
-      textInput.value = '';
-      
-      refreshCommentList(videoId);
-    }
-
-    function filterAndSortRegistry() {
-      activePool = videoDatabase.filter(video => {
-        const matchesSearch = video.searchTerms.toLowerCase().includes(searchQuery);
-        const categoriesList = video.category.split(' ');
-        const matchesCategory = (currentCategory === 'all' || categoriesList.includes(currentCategory));
-        return matchesSearch && matchesCategory;
-      });
-
-      const sortBy = sortSelect.value;
-      if (sortBy === 'recent') {
-        activePool.sort((a, b) => new Date(b.date) - new Date(a.date));
-      } else if (sortBy === 'size-asc') {
-        activePool.sort((a, b) => a.size - b.size);
-      } else if (sortBy === 'size-desc') {
-        activePool.sort((a, b) => b.size - a.size);
-      } else {
-        activePool.sort((a, b) => a.defaultIndex - b.defaultIndex);
-      }
-
-      visibleCount = CLIPS_PER_PAGE;
-      renderGrid();
-    }
-
-    function renderGrid() {
-      clipGrid.innerHTML = '';
-      const sliceToRender = activePool.slice(0, visibleCount);
-      if (sliceToRender.length === 0) {
-        clipGrid.innerHTML = `<div class="col-span-full text-center text-gray-500 py-12">No matching scenepacks found.</div>`;
-        loadMoreBtn.style.display = 'none';
-        return;
-      }
-      sliceToRender.forEach(video => {
-        clipGrid.insertAdjacentHTML('beforeend', createCardHtml(video));
-      });
-      
-      attachGlobalCommentListeners();
-      
-      if (visibleCount >= activePool.length) {
-        loadMoreBtn.style.display = 'none';
-      } else {
-        loadMoreBtn.style.display = 'flex';
-      }
-    }
-
-    window.loadMoreClips = function() {
-      visibleCount += CLIPS_PER_PAGE;
-      renderGrid();
-    };
-
-    searchInput.addEventListener('input', (e) => {
-      searchQuery = e.target.value.toLowerCase().trim();
-      filterAndSortRegistry();
-    });
-
-    sortSelect.addEventListener('change', filterAndSortRegistry);
-
-    window.filterCategory = function(category, element) {
-      currentCategory = category;
-      document.querySelectorAll('.cat-btn').forEach(btn => {
-        btn.classList.remove('bg-indigo-600', 'text-white');
-        btn.classList.add('bg-[#121622]', 'text-gray-400');
-      });
-      if (element) {
-        element.classList.remove('bg-[#121622]', 'text-gray-400');
-        element.classList.add('bg-indigo-600', 'text-white');
-      }
-      filterAndSortRegistry();
-    };
-
-    // Initial render
-    filterAndSortRegistry();
-  })();
-</script>
-</body>
-</html>
+    function handleEditClick(e) { const bubble = e.currentTarget.closest('.comment-bubble'); if(bubble){ bubble.querySelector('.comment-text-display').classList.add('hidden'); bubble.querySelector('.edit-mode').classList.remove('hidden'); } }
+    function handleCancelEdit(e) { const bubble = e.currentTarget.closest('.comment-bubble'); if(bubble){ bubble.querySelector('.comment-text-display').classList.remove('hidden'); bubble.querySelector('.edit-mode').classList.add('hidden'); const input = bubble.querySelector('.edit-comment-input'); const display = bubble.querySelector('.comment-text-display');
